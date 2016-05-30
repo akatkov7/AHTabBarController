@@ -24,6 +24,17 @@
 
 @implementation AHSubitemView
 
+-(nonnull AHSubitemView *)setup:(nonnull NSString *) title
+                          image:(nonnull UIImage *) image
+                     storyboard:(nullable UIStoryboard *) viewControllerStoryboard
+                     identifier:(nullable NSString *)viewControllerIdentifier {
+    self.title = title;
+    self.image = image;
+    self.viewControllerStoryboard = viewControllerStoryboard;
+    self.viewControllerIdentifier = viewControllerIdentifier;
+    return self;
+}
+
 -(void)setSelected:(BOOL)selected
 {
     _selected = selected;

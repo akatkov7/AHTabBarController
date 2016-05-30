@@ -31,6 +31,12 @@
 
 @implementation AHTabView
 
+-(nonnull AHTabView *)setup:(nonnull NSString *) title image:(nonnull UIImage *) image {
+    self.title = title;
+    self.image = image;
+    return self;
+}
+
 -(void)setSelected:(BOOL)selected
 {
     _selected = selected;

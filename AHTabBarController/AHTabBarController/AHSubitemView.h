@@ -27,6 +27,8 @@
  */
 @property (nonatomic) NSString *viewControllerIdentifier;
 
+@property (nonatomic) UIStoryboard *viewControllerStoryboard;
+
 /**
  A callback block for when the user taps the subitem.
  */
@@ -46,5 +48,7 @@
  Animate to a selected/deselected state.
  */
 -(void)setSelected:(BOOL)selected;
+
+-(nonnull AHSubitemView *)setup:(nonnull NSString *) title image:(nonnull UIImage *) image storyboard:(nullable UIStoryboard *) viewControllerStoryboard identifier:(nullable NSString *)viewControllerIdentifier;
 
 @end

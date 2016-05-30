@@ -48,4 +48,6 @@
  */
 -(void)setSelected:(BOOL)selected;
 
+-(nonnull AHTabView *)setup:(nonnull NSString *) title image:(nonnull UIImage *) image;
+
 @end

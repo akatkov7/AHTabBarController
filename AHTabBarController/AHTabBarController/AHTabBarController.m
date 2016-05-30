@@ -207,6 +207,10 @@
     //Getting the new viewcontroller or create it if we don't have it in memory yet
     UIViewController *viewController = [self viewControllerForSubitem:subitem];
     if ([viewController isEqual:[NSNull null]] || !viewController) {
+        UIStoryboard *storyboard = subitem.viewControllerStoryboard;
+        if (!storyboard) {
+            storyboard = self.storyboard;
+        }
         viewController = [self.storyboard instantiateViewControllerWithIdentifier:subitem.viewControllerIdentifier];
         
         if (!viewController) {
