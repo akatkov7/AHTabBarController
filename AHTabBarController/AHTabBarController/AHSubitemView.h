@@ -27,7 +27,7 @@
  */
 @property (nonatomic) NSString *viewControllerIdentifier;
 
-@property (nonatomic) UIStoryboard *viewControllerStoryboard;
+@property (nonatomic) UIViewController *viewController;
 
 /**
  A callback block for when the user taps the subitem.

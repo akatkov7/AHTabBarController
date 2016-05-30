@@ -207,17 +207,19 @@
     //Getting the new viewcontroller or create it if we don't have it in memory yet
     UIViewController *viewController = [self viewControllerForSubitem:subitem];
     if ([viewController isEqual:[NSNull null]] || !viewController) {
-        UIStoryboard *storyboard = subitem.viewControllerStoryboard;
-        if (!storyboard) {
-            storyboard = self.storyboard;
-        }
-        viewController = [storyboard instantiateViewControllerWithIdentifier:subitem.viewControllerIdentifier];
+        viewController = subitem.viewController;
         
         if (!viewController) {
             [[NSException exceptionWithName:@"Invalid ViewController!"
-                                     reason:@"The ViewController instantiated form the storyboard may not be nil. Please check if the identifier is valid"
+                                     reason:@"The ViewController must be passed into the subitem"
                                    userInfo:nil] raise];
         }
+//        viewController = [storyboard instantiateViewControllerWithIdentifier:subitem.viewControllerIdentifier];
+//        if (!viewController) {
+//            [[NSException exceptionWithName:@"Invalid ViewController!"
+//                                     reason:@"The ViewController instantiated form the storyboard may not be nil. Please check if the identifier is valid"
+//                                   userInfo:nil] raise];
+//        }
         
         [self setViewController:viewController forSubitem:subitem];
     }

@@ -26,12 +26,10 @@
 
 -(nonnull AHSubitemView *)setup:(nonnull NSString *) title
                           image:(nonnull UIImage *) image
-                     storyboard:(nullable UIStoryboard *) viewControllerStoryboard
-                     identifier:(nullable NSString *)viewControllerIdentifier {
+                     controller:(nonnull UIViewController *)viewController {
     self.title = title;
     self.image = image;
-    self.viewControllerStoryboard = viewControllerStoryboard;
-    self.viewControllerIdentifier = viewControllerIdentifier;
+    self.viewController = viewController;
     return self;
 }
 
