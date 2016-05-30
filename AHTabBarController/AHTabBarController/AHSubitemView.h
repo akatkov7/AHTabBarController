@@ -49,6 +49,6 @@
  */
 -(void)setSelected:(BOOL)selected;
 
--(nonnull AHSubitemView *)setup:(nonnull NSString *) title image:(nonnull UIImage *) image storyboard:(nullable UIStoryboard *) viewControllerStoryboard identifier:(nullable NSString *)viewControllerIdentifier;
+-(nonnull AHSubitemView *)setup:(nonnull NSString *) title image:(nonnull UIImage *) image controller:(nonnull UIViewController *)viewController;
 
 @end
