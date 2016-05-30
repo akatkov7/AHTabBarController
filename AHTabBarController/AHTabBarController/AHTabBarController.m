@@ -211,7 +211,7 @@
         if (!storyboard) {
             storyboard = self.storyboard;
         }
-        viewController = [self.storyboard instantiateViewControllerWithIdentifier:subitem.viewControllerIdentifier];
+        viewController = [storyboard instantiateViewControllerWithIdentifier:subitem.viewControllerIdentifier];
         
         if (!viewController) {
             [[NSException exceptionWithName:@"Invalid ViewController!"
