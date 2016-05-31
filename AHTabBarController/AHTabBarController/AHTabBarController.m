@@ -38,6 +38,8 @@
 //The separator line at the top of the tab bar
 @property (nonatomic) UIView *separator;
 
+@property (nonatomic, readonly) BOOL containerUnderTabBar;
+
 @end
 
 @implementation AHTabBarController
@@ -471,7 +473,12 @@
 -(UIView *)containerView
 {
     if (!_containerView) {
-        _containerView = [[UIView alloc] initWithFrame:self.view.bounds];
+        if (_containerUnderTabBar) {
+            _containerView = [[UIView alloc] initWithFrame:self.view.bounds];
+        } else {
+            CGRect frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height - [self tabBarHeight].doubleValue);
+            _containerView = [[UIView alloc] initWithFrame:frame];
+        }
         [self.view insertSubview:_containerView belowSubview:self.tabBar];
     }
     return _containerView;
@@ -527,6 +534,7 @@
     [self setSubmenuVisible:NO];
     [self setShouldTabBarAnimate:YES];
     _tabs = [NSMutableArray new];
+    _containerUnderTabBar = YES;
 }
 
 -(id)init
@@ -534,6 +542,16 @@
     self = [super init];
     if (self) {
         [self setup];
+    }
+    return self;
+}
+
+-(id)initWithContainerUnderTabBar:(BOOL)containerUnderTabBar
+{
+    self = [super init];
+    if (self) {
+        [self setup];
+        _containerUnderTabBar = containerUnderTabBar;
     }
     return self;
 }
