@@ -112,9 +112,9 @@
     if (_containerUnderTabBar) {
         newFrame.origin.y = self.containerView.frame.size.height - newFrame.size.height;
     } else {
-        newFrame.origin.y = self.containerView.frame.size.height;
         // need to adjust container
         newContainerFrame.size.height = self.containerView.frame.size.height - self.tabBarHeight.floatValue;
+        newFrame.origin.y = newContainerFrame.size.height;
     }
     
     [UIView animateWithDuration:.2f animations:^{

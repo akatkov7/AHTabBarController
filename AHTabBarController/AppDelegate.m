@@ -25,9 +25,12 @@
     AHSubitemView *pFirst = [AHSubitemView new];
     [pFirst setImage:[UIImage imageNamed:@"persondot"]];
     [pFirst setTitle:@"First"];
-    UIViewController *controller = [tabBarController.storyboard instantiateViewControllerWithIdentifier:@"PurusFirst"];
+    UINavigationController *controller = [tabBarController.storyboard instantiateViewControllerWithIdentifier:@"PurusFirst"];
     controller.view.layer.borderColor = [UIColor redColor].CGColor;
     controller.view.layer.borderWidth = 2.0f;
+    UINavigationController *controller2 = [tabBarController.storyboard instantiateViewControllerWithIdentifier:@"PurusFirst"];
+    NSMutableArray* mut = controller.viewControllers.mutableCopy;
+    [mut addObject:controller2.viewControllers[0]];
     [pFirst setViewController:controller];
     [purus addSubitem:pFirst];
     
