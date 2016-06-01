@@ -38,8 +38,6 @@
 //The separator line at the top of the tab bar
 @property (nonatomic) UIView *separator;
 
-@property (nonatomic, readonly) BOOL containerUnderTabBar;
-
 @end
 
 @implementation AHTabBarController
@@ -86,7 +84,11 @@
         return;
     
     CGRect newFrame = self.tabBar.frame;
-    newFrame.origin.y = self.containerView.frame.size.height;
+    if (_containerUnderTabBar) {
+        newFrame.origin.y = self.containerView.frame.size.height;
+    } else {
+        newFrame.origin.y = self.containerView.frame.size.height + self.tabBarHeight.floatValue;
+    }
     
     [UIView animateWithDuration:.3f animations:^{
         [self.tabBar setFrame:newFrame];
@@ -102,7 +104,11 @@
         return;
     
     CGRect newFrame = self.tabBar.frame;
-    newFrame.origin.y = self.containerView.frame.size.height - newFrame.size.height;
+    if (_containerUnderTabBar) {
+        newFrame.origin.y = self.containerView.frame.size.height - newFrame.size.height;
+    } else {
+        newFrame.origin.y = self.containerView.frame.size.height;
+    }
     
     [UIView animateWithDuration:.2f animations:^{
         [self.tabBar setFrame:newFrame];
@@ -346,7 +352,7 @@
         f.size.height = 1.f;
     
     self.separator = [[UIView alloc] initWithFrame:f];
-    [self.separator setBackgroundColor:[UIColor colorWithWhite:.7f alpha:1.f]];
+    [self.separator setBackgroundColor:[UIColor colorWithWhite:1.f alpha:1.f]];
     [self.tabBar addSubview:self.separator];
     
     //Create and add each tab to the tabBar
@@ -476,7 +482,7 @@
         if (_containerUnderTabBar) {
             _containerView = [[UIView alloc] initWithFrame:self.view.bounds];
         } else {
-            CGRect frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height - [self tabBarHeight].doubleValue);
+            CGRect frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.view.bounds.size.width, self.view.bounds.size.height - self.tabBarHeight.floatValue);
             _containerView = [[UIView alloc] initWithFrame:frame];
         }
         [self.view insertSubview:_containerView belowSubview:self.tabBar];
@@ -546,16 +552,6 @@
     return self;
 }
 
--(id)initWithContainerUnderTabBar:(BOOL)containerUnderTabBar
-{
-    self = [super init];
-    if (self) {
-        [self setup];
-        _containerUnderTabBar = containerUnderTabBar;
-    }
-    return self;
-}
-
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -580,7 +576,7 @@
     
     [self.view setTranslatesAutoresizingMaskIntoConstraints:YES];
     
-    [self.view setBackgroundColor:[UIColor blackColor]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
     //If the rootViewControllers array hasn't been initialized yet it means that we need to set up the whole tab bar
     if (!self.rootViewControllers) {

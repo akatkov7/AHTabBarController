@@ -15,6 +15,7 @@
 -(void)setupMenu
 {
     AHTabBarController *tabBarController = (AHTabBarController*)self.window.rootViewController;
+    tabBarController.containerUnderTabBar = NO;
     
     /******* PURUS *******/
     AHTabView *purus = [AHTabView new];
@@ -24,51 +25,56 @@
     AHSubitemView *pFirst = [AHSubitemView new];
     [pFirst setImage:[UIImage imageNamed:@"persondot"]];
     [pFirst setTitle:@"First"];
-    [pFirst setViewControllerIdentifier:@"PurusFirst"];
+    UIViewController *controller = [tabBarController.storyboard instantiateViewControllerWithIdentifier:@"PurusFirst"];
+    controller.view.layer.borderColor = [UIColor redColor].CGColor;
+    controller.view.layer.borderWidth = 2.0f;
+    [pFirst setViewController:controller];
     [purus addSubitem:pFirst];
     
-    AHSubitemView *pSecond = [AHSubitemView new];
-    [pSecond setImage:[UIImage imageNamed:@"newspaper"]];
-    [pSecond setTitle:@"Second"];
-    [pSecond setViewControllerIdentifier:@"PurusSecond"];
-    [purus addSubitem:pSecond];
-    
-    /******* FRINGILLA *******/
-    AHTabView *fringilla = [AHTabView new];
-    [fringilla setImage:[UIImage imageNamed:@"receipt"]];
-    [fringilla setTitle:@"Fringilla"];
-    
-    AHSubitemView *fFirst = [AHSubitemView new];
-    [fFirst setImage:[UIImage imageNamed:@"photos"]];
-    [fFirst setTitle:@"First"];
-    [fFirst setViewControllerIdentifier:@"FringillaFirst"];
-    [fringilla addSubitem:fFirst];
-    
-    AHSubitemView *fSecond = [AHSubitemView new];
-    [fSecond setImage:[UIImage imageNamed:@"tv"]];
-    [fSecond setTitle:@"Second"];
-    [fSecond setViewControllerIdentifier:@"FringillaSecond"];
-    [fringilla addSubitem:fSecond];
-    
-    AHSubitemView *fThird = [AHSubitemView new];
-    [fThird setImage:[UIImage imageNamed:@"user"]];
-    [fThird setTitle:@"Third"];
-    [fThird setViewControllerIdentifier:@"FringillaThird"];
-    [fringilla addSubitem:fThird];
-    
-    /******* IPSUM *******/
-    AHTabView *ipsum = [AHTabView new];
-    [ipsum setImage:[UIImage imageNamed:@"user"]];
-    [ipsum setTitle:@"Ipsum"];
-    
-    AHSubitemView *iFirst = [AHSubitemView new];
-    [iFirst setImage:[UIImage imageNamed:@"photos"]];
-    [iFirst setTitle:@"First"];
-    [iFirst setViewControllerIdentifier:@"IpsumFirst"];
-    [ipsum addSubitem:iFirst];
-    
+//    AHSubitemView *pSecond = [AHSubitemView new];
+//    [pSecond setImage:[UIImage imageNamed:@"newspaper"]];
+//    [pSecond setTitle:@"Second"];
+//    [pSecond setViewControllerIdentifier:@"PurusSecond"];
+//    [purus addSubitem:pSecond];
+//    
+//    /******* FRINGILLA *******/
+//    AHTabView *fringilla = [AHTabView new];
+//    [fringilla setImage:[UIImage imageNamed:@"receipt"]];
+//    [fringilla setTitle:@"Fringilla"];
+//    
+//    AHSubitemView *fFirst = [AHSubitemView new];
+//    [fFirst setImage:[UIImage imageNamed:@"photos"]];
+//    [fFirst setTitle:@"First"];
+//    [fFirst setViewControllerIdentifier:@"FringillaFirst"];
+//    [fringilla addSubitem:fFirst];
+//    
+//    AHSubitemView *fSecond = [AHSubitemView new];
+//    [fSecond setImage:[UIImage imageNamed:@"tv"]];
+//    [fSecond setTitle:@"Second"];
+//    [fSecond setViewControllerIdentifier:@"FringillaSecond"];
+//    [fringilla addSubitem:fSecond];
+//    
+//    AHSubitemView *fThird = [AHSubitemView new];
+//    [fThird setImage:[UIImage imageNamed:@"user"]];
+//    [fThird setTitle:@"Third"];
+//    [fThird setViewControllerIdentifier:@"FringillaThird"];
+//    [fringilla addSubitem:fThird];
+//    
+//    /******* IPSUM *******/
+//    AHTabView *ipsum = [AHTabView new];
+//    [ipsum setImage:[UIImage imageNamed:@"user"]];
+//    [ipsum setTitle:@"Ipsum"];
+//    
+//    AHSubitemView *iFirst = [AHSubitemView new];
+//    [iFirst setImage:[UIImage imageNamed:@"photos"]];
+//    [iFirst setTitle:@"First"];
+//    [iFirst setViewControllerIdentifier:@"IpsumFirst"];
+//    [ipsum addSubitem:iFirst];
+//    
     //Don't forget to add your AHTabView instances to the AHTabBarController!
-    [tabBarController.tabs addObjectsFromArray:@[purus, fringilla, ipsum]];
+//    [tabBarController.tabs addObjectsFromArray:@[purus, fringilla, ipsum]];
+    [tabBarController.tabs addObjectsFromArray:@[purus]];
+
 }
 
 #pragma mark - App lifecycle

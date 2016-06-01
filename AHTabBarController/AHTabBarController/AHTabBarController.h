@@ -23,6 +23,8 @@
  */
 @property (nonatomic, readonly) UIView *containerView;
 
+@property (nonatomic) BOOL containerUnderTabBar;
+
 /**
  This array contains AHTabView instances. Each AHTabView instance can contain multiple AHSubitemViews which will be revealed when the users taps on a tab.
  */
