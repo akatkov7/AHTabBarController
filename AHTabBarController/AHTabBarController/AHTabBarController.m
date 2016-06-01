@@ -84,14 +84,18 @@
         return;
     
     CGRect newFrame = self.tabBar.frame;
+    CGRect newContainerFrame = self.containerView.frame;
     if (_containerUnderTabBar) {
         newFrame.origin.y = self.containerView.frame.size.height;
     } else {
         newFrame.origin.y = self.containerView.frame.size.height + self.tabBarHeight.floatValue;
+        // need to adjust container
+        newContainerFrame.size.height = self.containerView.frame.size.height + self.tabBarHeight.floatValue;
     }
     
     [UIView animateWithDuration:.3f animations:^{
         [self.tabBar setFrame:newFrame];
+        [self.containerView setFrame:newContainerFrame];
     } completion:^(BOOL finished) {
         if (finished)
             _tabBarHidden = YES;
@@ -104,14 +108,18 @@
         return;
     
     CGRect newFrame = self.tabBar.frame;
+    CGRect newContainerFrame = self.containerView.frame;
     if (_containerUnderTabBar) {
         newFrame.origin.y = self.containerView.frame.size.height - newFrame.size.height;
     } else {
         newFrame.origin.y = self.containerView.frame.size.height;
+        // need to adjust container
+        newContainerFrame.size.height = self.containerView.frame.size.height - self.tabBarHeight.floatValue;
     }
     
     [UIView animateWithDuration:.2f animations:^{
         [self.tabBar setFrame:newFrame];
+        [self.containerView setFrame:newContainerFrame];
     } completion:^(BOOL finished) {
         if (finished)
             _tabBarHidden = NO;
