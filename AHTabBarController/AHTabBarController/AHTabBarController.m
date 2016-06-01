@@ -95,7 +95,10 @@
     
     [UIView animateWithDuration:.3f animations:^{
         [self.tabBar setFrame:newFrame];
-        [self.containerView setFrame:newContainerFrame];
+        if (!_containerUnderTabBar) {
+            [self.containerView setFrame:newContainerFrame];
+            [self.containerView layoutIfNeeded];
+        }
     } completion:^(BOOL finished) {
         if (finished)
             _tabBarHidden = YES;
@@ -119,7 +122,10 @@
     
     [UIView animateWithDuration:.2f animations:^{
         [self.tabBar setFrame:newFrame];
-        [self.containerView setFrame:newContainerFrame];
+        if (!_containerUnderTabBar) {
+            [self.containerView setFrame:newContainerFrame];
+            [self.containerView layoutIfNeeded];
+        }
     } completion:^(BOOL finished) {
         if (finished)
             _tabBarHidden = NO;
