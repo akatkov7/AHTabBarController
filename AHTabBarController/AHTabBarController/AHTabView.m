@@ -59,7 +59,7 @@
         UIColor *tintColor = [UIColor colorWithWhite:.6f alpha:1.f];
         [self.titleLabel setTextColor:tintColor];
         [self.titleLabel setFont:[UIFont systemFontOfSize:9.f]];
-        [self setColorForThumbnail:self.tintColor];
+        [self setColorForThumbnail:tintColor];
     }
 }
 
