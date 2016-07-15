@@ -29,6 +29,11 @@
 @property (nonatomic) UIImage *image;
 
 /**
+ The tab's custom view.
+ */
+@property (nonatomic) UIView *customView;
+
+/**
  A callback block for when the user taps the tab.
  */
 @property (nonatomic, copy) void (^didSelectTab)(AHTabView *tab);
@@ -48,6 +53,10 @@
  */
 -(void)setSelected:(BOOL)selected;
 
--(nonnull AHTabView *)setup:(nonnull NSString *) title image:(nonnull UIImage *) image;
+-(nonnull AHTabView *)setup:(nonnull NSString *) title
+                      image:(nonnull UIImage *) image;
+
+-(nonnull AHTabView *)setup:(nonnull NSString *) title
+                 customView:(nonnull UIView *) customView;
 
 @end

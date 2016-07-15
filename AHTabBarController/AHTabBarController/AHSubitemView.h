@@ -12,22 +12,32 @@
 
 @interface AHSubitemView : UIView
 
+typedef UIViewController* _Nonnull (^ViewControllerBlock)();
+
 /**
  The title that is displayed in the menu for this subitem.
  */
-@property (nonatomic) NSString *title;
+@property (nonatomic) NSString * _Nonnull title;
 
 /**
  The icon image for the subitem.
  */
-@property (nonatomic) UIImage *image;
+@property (nonatomic) UIImage * _Nullable image;
 
 /**
- The identifier of the viewcontroller that will be instantiated from the storyboard.
+ The custom icon view for the subitem.
  */
-@property (nonatomic) NSString *viewControllerIdentifier;
+@property (nonatomic) UIView * _Nullable customView;
 
-@property (nonatomic) UIViewController *viewController;
+/**
+ The view controller for this subitem
+ */
+@property (nonatomic) UIViewController * _Nullable viewController;
+
+/**
+ The block to load the view controller for this tab lazily.
+ */
+@property (nonatomic) ViewControllerBlock controllerBlock;
 
 /**
  A callback block for when the user taps the subitem.
@@ -49,6 +59,13 @@
  */
 -(void)setSelected:(BOOL)selected;
 
--(nonnull AHSubitemView *)setup:(nonnull NSString *) title image:(nonnull UIImage *) image controller:(nonnull UIViewController *)viewController;
+
+-(nonnull AHSubitemView *)setup:(nonnull NSString *) title
+                          image:(nonnull UIImage *) image
+                controllerBlock:(nonnull ViewControllerBlock) controllerBlock;
+
+-(nonnull AHSubitemView *)setup:(nonnull NSString *) title
+                     customView:(nonnull UIView *) customView
+                controllerBlock:(nonnull ViewControllerBlock) controllerBlock;
 
 @end

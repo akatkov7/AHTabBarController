@@ -18,8 +18,10 @@
 
 @interface AHTabView ()
 
+@property (nonatomic) UIView *thumbnailView;
+
 //The imageview that displays the tab's image
-@property (nonatomic) UIImageView *thumbnail;
+@property (nonatomic) UIImageView *thumbnailImageView;
 
 //The label that displays the tab's title
 @property (nonatomic) UILabel *titleLabel;
@@ -31,9 +33,17 @@
 
 @implementation AHTabView
 
--(nonnull AHTabView *)setup:(nonnull NSString *) title image:(nonnull UIImage *) image {
+-(nonnull AHTabView *)setup:(nonnull NSString *) title
+                      image:(nonnull UIImage *) image {
     self.title = title;
     self.image = image;
+    return self;
+}
+
+-(nonnull AHTabView *)setup:(nonnull NSString *) title
+                 customView:(nonnull UIView *) customView {
+    self.title = title;
+    self.customView = customView;
     return self;
 }
 
@@ -44,12 +54,30 @@
     if (selected) {
         [self.titleLabel setTextColor:self.selectedColor];
         [self.titleLabel setFont:[UIFont boldSystemFontOfSize:9.f]];
-        [self.thumbnail setImage:[self.image imageWithColor:self.selectedColor]];
+        [self setColorForThumbnail:self.selectedColor];
     } else {
         UIColor *tintColor = [UIColor colorWithWhite:.6f alpha:1.f];
         [self.titleLabel setTextColor:tintColor];
         [self.titleLabel setFont:[UIFont systemFontOfSize:9.f]];
-        [self.thumbnail setImage:[self.image imageWithColor:tintColor]];
+        [self setColorForThumbnail:self.tintColor];
+    }
+}
+
+-(void)setColorForThumbnail:(UIColor *)color {
+    if (self.image != nil) {
+        for (UIView *view in self.thumbnailView.subviews) {
+            [view removeFromSuperview];
+        }
+        [self.thumbnailView addSubview:self.thumbnailImageView];
+        self.thumbnailImageView.frame = self.thumbnailView.bounds;
+        [self.thumbnailImageView setImage:[self.image imageWithColor:color]];
+    } else if (self.customView != nil) {
+        for (UIView *view in self.thumbnailView.subviews) {
+            [view removeFromSuperview];
+        }
+        [self.thumbnailView addSubview:self.customView];
+        self.customView.frame = self.thumbnailView.bounds;
+        [self.customView setTintColor:color];
     }
 }
 
@@ -72,10 +100,15 @@
     UIColor *tintColor = self.isSelected ? self.selectedColor : [UIColor colorWithWhite:.6f alpha:1.f];
     
     //Create and setup the thumbnail imageview if it doesn't exist yet
-    if (!self.thumbnail) {
-        self.thumbnail = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.thumbnail setContentMode:UIViewContentModeScaleAspectFit];
-        [self addSubview:self.thumbnail];
+    if (!self.thumbnailView) {
+        self.thumbnailView = [[UIView alloc] initWithFrame:CGRectZero];
+        [self addSubview:self.thumbnailView];
+    }
+    
+    if (!self.thumbnailImageView) {
+        self.thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.thumbnailImageView setContentMode:UIViewContentModeScaleAspectFit];
+        [self addSubview:self.thumbnailImageView];
     }
     
     //Set the thumbnail's frame and set the image
@@ -84,8 +117,8 @@
     tFrame.size.height = frame.size.height - (3*kVerticalSpacing + kLabelHeight) - 11.f;
     tFrame.origin.x = kHorizontalSpacing;
     tFrame.origin.y = 8*kVerticalSpacing;
-    [self.thumbnail setFrame:tFrame];
-    [self.thumbnail setImage:[self.image imageWithColor:tintColor]];
+    [self.thumbnailView setFrame:tFrame];
+    [self setColorForThumbnail:tintColor];
     
     //Create and setup the titlelabel if it doesn't exist yet
     if (!self.titleLabel) {

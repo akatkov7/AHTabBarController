@@ -19,38 +19,43 @@
     
     /******* PURUS *******/
     AHTabView *purus = [AHTabView new];
-    [purus setImage:[UIImage imageNamed:@"persondot"]];
-    [purus setTitle:@"Purus"];
+    [purus setup:@"Purus" image:[UIImage imageNamed:@"persondot"]];
     
     AHSubitemView *pFirst = [AHSubitemView new];
-    [pFirst setImage:[UIImage imageNamed:@"persondot"]];
-    [pFirst setTitle:@"First"];
-    UINavigationController *controller = [tabBarController.storyboard instantiateViewControllerWithIdentifier:@"PurusFirst"];
-    controller.view.layer.borderColor = [UIColor redColor].CGColor;
-    controller.view.layer.borderWidth = 2.0f;
-    UINavigationController *controller2 = [tabBarController.storyboard instantiateViewControllerWithIdentifier:@"PurusFirst"];
-    NSMutableArray* mut = controller.viewControllers.mutableCopy;
-    [mut addObject:controller2.viewControllers[0]];
-    [pFirst setViewController:controller];
+    [pFirst setup:@"First" image: [UIImage imageNamed:@"persondot"] controllerBlock:^UIViewController * _Nonnull{
+        UINavigationController *controller = [tabBarController.storyboard instantiateViewControllerWithIdentifier:@"PurusFirst"];
+        return controller;
+    }];
+    
     [purus addSubitem:pFirst];
     
-//    AHSubitemView *pSecond = [AHSubitemView new];
-//    [pSecond setImage:[UIImage imageNamed:@"newspaper"]];
-//    [pSecond setTitle:@"Second"];
-//    [pSecond setViewControllerIdentifier:@"PurusSecond"];
-//    [purus addSubitem:pSecond];
-//    
-//    /******* FRINGILLA *******/
-//    AHTabView *fringilla = [AHTabView new];
-//    [fringilla setImage:[UIImage imageNamed:@"receipt"]];
-//    [fringilla setTitle:@"Fringilla"];
-//    
-//    AHSubitemView *fFirst = [AHSubitemView new];
-//    [fFirst setImage:[UIImage imageNamed:@"photos"]];
-//    [fFirst setTitle:@"First"];
-//    [fFirst setViewControllerIdentifier:@"FringillaFirst"];
-//    [fringilla addSubitem:fFirst];
-//    
+    AHSubitemView *pSecond = [AHSubitemView new];
+    UIView *pSecondCustomView = [UIView.alloc init];
+    [pSecondCustomView addSubview:[UIImageView.alloc initWithImage:[UIImage imageNamed:@"newspaper"]]];
+    UIActivityIndicatorView *indicatorView = [UIActivityIndicatorView.alloc init];
+    [indicatorView setColor:[UIColor blueColor]];
+    [indicatorView startAnimating];
+    [pSecondCustomView addSubview:indicatorView];
+    // TODO: center indicator view
+    [pSecond setup:@"Second" customView:pSecondCustomView controllerBlock:^UIViewController * _Nonnull{
+        UINavigationController *controller = [tabBarController.storyboard instantiateViewControllerWithIdentifier:@"PurusSecond"];
+        return controller;
+    }];
+    
+    [purus addSubitem:pSecond];
+
+    /******* FRINGILLA *******/
+    AHTabView *fringilla = [AHTabView new];
+    [fringilla setup:@"Fringilla" image:[UIImage imageNamed:@"receipt"]];
+    
+    AHSubitemView *fFirst = [AHSubitemView new];
+    [fFirst setup:@"First" image:[UIImage imageNamed:@"photos"] controllerBlock:^UIViewController * _Nonnull{
+        UINavigationController *controller = [tabBarController.storyboard instantiateViewControllerWithIdentifier:@"FringillaFirst"];
+        return controller;
+    }];
+    
+    [fringilla addSubitem:fFirst];
+//
 //    AHSubitemView *fSecond = [AHSubitemView new];
 //    [fSecond setImage:[UIImage imageNamed:@"tv"]];
 //    [fSecond setTitle:@"Second"];
@@ -76,7 +81,7 @@
 //    
     //Don't forget to add your AHTabView instances to the AHTabBarController!
 //    [tabBarController.tabs addObjectsFromArray:@[purus, fringilla, ipsum]];
-    [tabBarController.tabs addObjectsFromArray:@[purus]];
+    [tabBarController.tabs addObjectsFromArray:@[purus, fringilla]];
 
 }
 

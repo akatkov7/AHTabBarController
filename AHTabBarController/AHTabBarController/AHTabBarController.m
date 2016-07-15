@@ -232,16 +232,9 @@
         viewController = subitem.viewController;
         
         if (!viewController) {
-            [[NSException exceptionWithName:@"Invalid ViewController!"
-                                     reason:@"The ViewController must be passed into the subitem"
-                                   userInfo:nil] raise];
+            viewController = subitem.controllerBlock();
+            subitem.viewController = viewController;
         }
-//        viewController = [storyboard instantiateViewControllerWithIdentifier:subitem.viewControllerIdentifier];
-//        if (!viewController) {
-//            [[NSException exceptionWithName:@"Invalid ViewController!"
-//                                     reason:@"The ViewController instantiated form the storyboard may not be nil. Please check if the identifier is valid"
-//                                   userInfo:nil] raise];
-//        }
         
         [self setViewController:viewController forSubitem:subitem];
     }

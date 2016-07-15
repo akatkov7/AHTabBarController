@@ -14,7 +14,9 @@
 
 @interface AHSubitemView ()
 
-@property (nonatomic) UIImageView *thumbnail;
+@property (nonatomic) UIView *thumbnailView;
+
+@property (nonatomic) UIImageView *thumbnailImageView;
 
 @property (nonatomic) UILabel *titleLabel;
 
@@ -26,10 +28,19 @@
 
 -(nonnull AHSubitemView *)setup:(nonnull NSString *) title
                           image:(nonnull UIImage *) image
-                     controller:(nonnull UIViewController *)viewController {
+                controllerBlock:(nonnull ViewControllerBlock)controllerBlock {
     self.title = title;
     self.image = image;
-    self.viewController = viewController;
+    self.controllerBlock = controllerBlock;
+    return self;
+}
+
+-(nonnull AHSubitemView *)setup:(nonnull NSString *) title
+                     customView:(nonnull UIView *) customView
+                controllerBlock:(nonnull ViewControllerBlock)controllerBlock {
+    self.title = title;
+    self.customView = customView;
+    self.controllerBlock = controllerBlock;
     return self;
 }
 
@@ -40,12 +51,30 @@
     if (selected) {
         [self.titleLabel setTextColor:self.selectedColor];
         [self.titleLabel setFont:[UIFont boldSystemFontOfSize:16.f]];
-        [self.thumbnail setImage:[self.image imageWithColor:self.selectedColor]];
+        [self setColorForThumbnail:self.selectedColor];
     } else {
         UIColor *tintColor = [UIColor colorWithWhite:.6f alpha:1.f];
         [self.titleLabel setTextColor:tintColor];
         [self.titleLabel setFont:[UIFont systemFontOfSize:16.f]];
-        [self.thumbnail setImage:[self.image imageWithColor:tintColor]];
+        [self setColorForThumbnail:tintColor];
+    }
+}
+
+-(void)setColorForThumbnail:(UIColor *)color {
+    if (self.image != nil) {
+        for (UIView *view in self.thumbnailView.subviews) {
+            [view removeFromSuperview];
+        }
+        [self.thumbnailView addSubview:self.thumbnailImageView];
+        self.thumbnailImageView.frame = self.thumbnailView.bounds;
+        [self.thumbnailImageView setImage:[self.image imageWithColor:color]];
+    } else if (self.customView != nil) {
+        for (UIView *view in self.thumbnailView.subviews) {
+            [view removeFromSuperview];
+        }
+        [self.thumbnailView addSubview:self.customView];
+        self.customView.frame = self.thumbnailView.bounds;
+        [self.customView setTintColor:color];
     }
 }
 
@@ -65,10 +94,15 @@
     [sep setBackgroundColor:[UIColor colorWithWhite:.7f alpha:1.f]];
     [self addSubview:sep];
     
-    if (!self.thumbnail) {
-        self.thumbnail = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.thumbnail setContentMode:UIViewContentModeScaleAspectFit];
-        [self addSubview:self.thumbnail];
+    if (!self.thumbnailView) {
+        self.thumbnailView = [[UIView alloc] initWithFrame:CGRectZero];
+        [self addSubview:self.thumbnailView];
+    }
+    
+    if (!self.thumbnailImageView) {
+        self.thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.thumbnailImageView setContentMode:UIViewContentModeScaleAspectFit];
+        [self addSubview:self.thumbnailImageView];
     }
     
     CGRect tFrame = CGRectZero;
@@ -76,8 +110,8 @@
     tFrame.size.width = tFrame.size.height;
     tFrame.origin.x = kHorizontalSpacing;
     tFrame.origin.y = (frame.size.height - tFrame.size.height)/2.f;
-    [self.thumbnail setFrame:tFrame];
-    [self.thumbnail setImage:[self.image imageWithColor:tintColor]];
+    [self.thumbnailView setFrame:tFrame];
+    [self setColorForThumbnail:tintColor];
     
     if (!self.titleLabel) {
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
