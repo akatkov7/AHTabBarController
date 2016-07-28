@@ -329,6 +329,9 @@
     NSUInteger firstDimension = [self.tabs indexOfObject:subitem.tab];
     NSUInteger secondDimension = [subitem.tab.subitems indexOfObject:subitem];
     
+    if (firstDimension == NSNotFound || secondDimension == NSNotFound)
+        return nil;
+    
     UIViewController *viewController = self.rootViewControllers[firstDimension][secondDimension];
     return viewController;
 }
