@@ -65,4 +65,9 @@
  */
 -(void)presentTabBar;
 
+/**
+ Selects the given tab as if the user has pressed it.
+ */
+-(void)selectTab:(nonnull AHTabView *)tab;
+
 @end

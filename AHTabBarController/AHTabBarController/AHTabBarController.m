@@ -250,6 +250,11 @@
 }
 
 #pragma mark - Behaviour
+-(void)selectTab:(nonnull AHTabView *)tab
+{
+    [self didSelectTab:tab];
+}
+
 -(void)didSelectTab:(AHTabView*)tabView
 {
     if (self.isSubmenuAnimating)
