@@ -250,9 +250,11 @@
 }
 
 #pragma mark - Behaviour
--(void)selectTab:(nonnull AHTabView *)tab
+-(void)selectTab:(NSInteger)index
 {
-    [self didSelectTab:tab];
+    if (index >= 0 && index < self.tabs.count) {
+        [self didSelectTab:self.tabs[index]];
+    }
 }
 
 -(void)didSelectTab:(AHTabView*)tabView
