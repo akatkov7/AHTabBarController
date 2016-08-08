@@ -96,7 +96,7 @@
     CGRect frame = self.frame;
     static const float kHorizontalSpacing = 5.f;
     static const float kVerticalSpacing = 1.f;
-    static const float kLabelHeight = 13.f;
+    float kLabelHeight = self.fontSize + 4.f;
     
     UIColor *tintColor = self.isSelected ? self.selectedColor : self.deselectedColor;
     
