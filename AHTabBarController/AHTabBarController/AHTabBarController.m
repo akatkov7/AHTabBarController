@@ -55,6 +55,8 @@
     for (AHSubitemView *s in tabView.subitems) {
         int i = (int)[tabView.subitems indexOfObject:s];
         [s setSelectedColor:self.selectedColor];
+        [s setDeselectedColor:self.deselectedColor];
+        [s setFontSize:self.subitemFontSize];
         CGRect frame = CGRectMake(0.f, i*self.subitemHeight.floatValue, self.submenu.frame.size.width, self.subitemHeight.floatValue);
         [s setFrame:frame];
         
@@ -378,6 +380,8 @@
         AHTabView *tabView = self.tabs[i];
         [tabView setFrame:tabFrame];
         [tabView setSelectedColor:self.selectedColor];
+        [tabView setDeselectedColor:self.deselectedColor];
+        [tabView setFontSize:self.fontSize];
         
         __weak typeof(self) weakself = self;
         [tabView setDidSelectTab:^(AHTabView *tab) {
@@ -428,6 +432,8 @@
             for (AHSubitemView *s in self.selectedTab.subitems) {
                 int i = (int)[self.selectedTab.subitems indexOfObject:s];
                 [s setSelectedColor:self.selectedColor];
+                [s setDeselectedColor:self.deselectedColor];
+                [s setFontSize:self.subitemFontSize];
                 CGRect frame = CGRectMake(0.f, i*self.subitemHeight.floatValue, size.width, self.subitemHeight.floatValue);
                 [s setFrame:frame];
             }
@@ -532,6 +538,30 @@
                                          alpha:1.f];
     }
     return _selectedColor;
+}
+
+-(UIColor *)deselectedColor
+{
+    if (!_deselectedColor) {
+        _deselectedColor = [UIColor colorWithWhite:0.6f alpha:1.f];
+    }
+    return _deselectedColor;
+}
+
+-(CGFloat)fontSize
+{
+    if (_fontSize == 0) {
+        _fontSize = 9;
+    }
+    return _fontSize;
+}
+
+-(CGFloat)subitemFontSize
+{
+    if (_subitemFontSize == 0) {
+        _subitemFontSize = 16;
+    }
+    return _subitemFontSize;
 }
 
 -(UIView *)darkenView

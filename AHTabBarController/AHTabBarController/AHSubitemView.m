@@ -50,13 +50,12 @@
     
     if (selected) {
         [self.titleLabel setTextColor:self.selectedColor];
-        [self.titleLabel setFont:[UIFont boldSystemFontOfSize:16.f]];
+        [self.titleLabel setFont:[UIFont boldSystemFontOfSize:self.fontSize]];
         [self setColorForThumbnail:self.selectedColor];
     } else {
-        UIColor *tintColor = [UIColor colorWithWhite:.6f alpha:1.f];
-        [self.titleLabel setTextColor:tintColor];
-        [self.titleLabel setFont:[UIFont systemFontOfSize:16.f]];
-        [self setColorForThumbnail:tintColor];
+        [self.titleLabel setTextColor:self.deselectedColor];
+        [self.titleLabel setFont:[UIFont systemFontOfSize:self.fontSize]];
+        [self setColorForThumbnail:self.deselectedColor];
     }
 }
 
@@ -84,7 +83,7 @@
     [super layoutSubviews];
     
     CGRect frame = self.frame;
-    UIColor *tintColor = self.isSelected ? self.selectedColor : [UIColor colorWithWhite:.6f alpha:1.f];
+    UIColor *tintColor = self.isSelected ? self.selectedColor : self.deselectedColor;
     static const float kHorizontalSpacing = 10.f;
     static const float kVerticalSpacing = 5.f;
     
@@ -115,7 +114,7 @@
     
     if (!self.titleLabel) {
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [self.titleLabel setFont:[UIFont systemFontOfSize:16.f]];
+        [self.titleLabel setFont:[UIFont systemFontOfSize:self.fontSize]];
         [self.titleLabel setTextColor:tintColor];
         [self.titleLabel setLineBreakMode:NSLineBreakByTruncatingTail];
         [self addSubview:self.titleLabel];

@@ -53,13 +53,12 @@
     
     if (selected) {
         [self.titleLabel setTextColor:self.selectedColor];
-        [self.titleLabel setFont:[UIFont boldSystemFontOfSize:9.f]];
+        [self.titleLabel setFont:[UIFont boldSystemFontOfSize:self.fontSize]];
         [self setColorForThumbnail:self.selectedColor];
     } else {
-        UIColor *tintColor = [UIColor colorWithWhite:.6f alpha:1.f];
-        [self.titleLabel setTextColor:tintColor];
-        [self.titleLabel setFont:[UIFont systemFontOfSize:9.f]];
-        [self setColorForThumbnail:tintColor];
+        [self.titleLabel setTextColor:self.deselectedColor];
+        [self.titleLabel setFont:[UIFont systemFontOfSize:self.fontSize]];
+        [self setColorForThumbnail:self.deselectedColor];
     }
 }
 
@@ -97,7 +96,7 @@
     static const float kVerticalSpacing = 1.f;
     static const float kLabelHeight = 13.f;
     
-    UIColor *tintColor = self.isSelected ? self.selectedColor : [UIColor colorWithWhite:.6f alpha:1.f];
+    UIColor *tintColor = self.isSelected ? self.selectedColor : self.deselectedColor;
     
     //Create and setup the thumbnail imageview if it doesn't exist yet
     if (!self.thumbnailView) {
@@ -123,8 +122,8 @@
     //Create and setup the titlelabel if it doesn't exist yet
     if (!self.titleLabel) {
         self.titleLabel = [UILabel new];
-        [self.titleLabel setFont:[UIFont systemFontOfSize:9.f]];
-        [self.titleLabel setTextColor:[UIColor colorWithWhite:.5f alpha:1.f]];
+        [self.titleLabel setFont:[UIFont systemFontOfSize:self.fontSize]];
+        [self.titleLabel setTextColor:self.deselectedColor];
         [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [self.titleLabel setLineBreakMode:NSLineBreakByTruncatingTail];
         [self addSubview:self.titleLabel];

@@ -36,6 +36,11 @@
 @property (nonatomic) UIColor *selectedColor;
 
 /**
+ The color that indicates the deselected state of tabs and submenu items.
+ */
+@property (nonatomic) UIColor *deselectedColor;
+
+/**
  The height for the cells that are presented when the menu is raised. Defaults to 50.
  */
 @property (nonatomic) NSNumber *subitemHeight;
@@ -44,6 +49,16 @@
  The height of the tab bar. Defaults to 49.
 */
 @property (nonatomic) NSNumber *tabBarHeight;
+
+/**
+ The font size of the title labels on the tab bar.
+ */
+@property (nonatomic) CGFloat fontSize;
+
+/**
+ The font size of the subitem title labels.
+ */
+@property (nonatomic) CGFloat subitemFontSize;
 
 /**
  A boolean indicating whether the tabbar should move with the submenu or that the submenu should appear above the tabbar.

@@ -50,6 +50,16 @@ typedef UIViewController* _Nonnull (^ViewControllerBlock)();
 @property (nonatomic) UIColor *selectedColor;
 
 /**
+ The color that the title label and icon image will have when the view is deselected.
+ */
+@property (nonatomic) UIColor *deselectedColor;
+
+/**
+ The font size of the title label.
+ */
+@property (nonatomic) CGFloat fontSize;
+
+/**
  The AHTabView instance under which this subitem is visible in the menu.
  */
 @property (nonatomic) AHTabView *tab;
