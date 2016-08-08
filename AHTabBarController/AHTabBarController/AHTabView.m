@@ -55,10 +55,12 @@
         [self.titleLabel setTextColor:self.selectedColor];
         [self.titleLabel setFont:[UIFont boldSystemFontOfSize:self.fontSize]];
         [self setColorForThumbnail:self.selectedColor];
+        [self setBackgroundColor:[UIColor colorWithWhite:.85f alpha:.9f]];
     } else {
         [self.titleLabel setTextColor:self.deselectedColor];
         [self.titleLabel setFont:[UIFont systemFontOfSize:self.fontSize]];
         [self setColorForThumbnail:self.deselectedColor];
+        [self setBackgroundColor:[UIColor colorWithWhite:.9f alpha:.8f]];
     }
 }
 
