@@ -41,6 +41,16 @@
 @property (nonatomic) UIColor *deselectedColor;
 
 /**
+ The background color that indicates the selected state of tabs.
+ */
+@property (nonatomic) UIColor *selectedBackgroundColor;
+
+/**
+ The background color that indicates the deselected state of tabs.
+ */
+@property (nonatomic) UIColor *deselectedBackgroundColor;
+
+/**
  The height for the cells that are presented when the menu is raised. Defaults to 50.
  */
 @property (nonatomic) NSNumber *subitemHeight;

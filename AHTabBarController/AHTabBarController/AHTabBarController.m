@@ -381,6 +381,8 @@
         [tabView setFrame:tabFrame];
         [tabView setSelectedColor:self.selectedColor];
         [tabView setDeselectedColor:self.deselectedColor];
+        [tabView setSelectedBackgroundColor:self.selectedBackgroundColor];
+        [tabView setDeselectedBackgroundColor:self.deselectedBackgroundColor];
         [tabView setFontSize:self.fontSize];
         
         __weak typeof(self) weakself = self;
@@ -489,7 +491,7 @@
                                                                self.view.bounds.size.height-self.tabBarHeight.floatValue,
                                                                self.view.bounds.size.width,
                                                                self.tabBarHeight.floatValue)];
-        [_tabBar setBackgroundColor:[UIColor colorWithWhite:.9f alpha:.8f]];
+        [_tabBar setBackgroundColor:self.deselectedBackgroundColor];
         
         self.separator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _tabBar.frame.size.width, 1.f)];
         [self.separator setBackgroundColor:[UIColor colorWithWhite:.7f alpha:1.f]];
@@ -546,6 +548,22 @@
         _deselectedColor = [UIColor colorWithWhite:0.6f alpha:1.f];
     }
     return _deselectedColor;
+}
+
+-(UIColor *)selectedBackgroundColor
+{
+    if (!_selectedBackgroundColor) {
+        _selectedBackgroundColor = [UIColor colorWithWhite:0.8f alpha:1.f];
+    }
+    return _selectedBackgroundColor;
+}
+
+-(UIColor *)deselectedBackgroundColor
+{
+    if (!_deselectedBackgroundColor) {
+        _deselectedBackgroundColor = [UIColor colorWithWhite:0.9f alpha:1.f];
+    }
+    return _deselectedBackgroundColor;
 }
 
 -(CGFloat)fontSize

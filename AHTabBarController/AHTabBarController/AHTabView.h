@@ -49,6 +49,16 @@
 @property (nonatomic) UIColor *deselectedColor;
 
 /**
+ The background color that indicates the selected state of tabs.
+ */
+@property (nonatomic) UIColor *selectedBackgroundColor;
+
+/**
+ The background color that indicates the deselected state of tabs.
+ */
+@property (nonatomic) UIColor *deselectedBackgroundColor;
+
+/**
  The font size of the title label.
  */
 @property (nonatomic) CGFloat fontSize;
