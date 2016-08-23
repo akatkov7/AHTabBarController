@@ -93,6 +93,6 @@
 /**
  Selects the given tab as if the user has pressed it.
  */
--(void)selectTab:(NSInteger)index;
+-(void)selectTab:(NSInteger)index initBlock:(void (^_Nullable)( UIViewController * _Nullable viewController))initBlock;
 
 @end

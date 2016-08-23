@@ -252,10 +252,11 @@
 }
 
 #pragma mark - Behaviour
--(void)selectTab:(NSInteger)index
+-(void)selectTab:(NSInteger)index initBlock:(void (^_Nullable)( UIViewController * _Nullable viewController))initBlock
 {
     if (index >= 0 && index < self.tabs.count) {
         [self didSelectTab:self.tabs[index]];
+        initBlock([self viewControllerForSubitem:self.currentItem]);
     }
 }
 
