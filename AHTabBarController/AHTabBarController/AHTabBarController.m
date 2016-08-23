@@ -256,7 +256,7 @@
 {
     if (index >= 0 && index < self.tabs.count) {
         [self didSelectTab:self.tabs[index]];
-        initBlock([self viewControllerForSubitem:self.currentItem]);
+        if (initBlock) initBlock([self viewControllerForSubitem:self.currentItem]);
     }
 }
 
